@@ -66,7 +66,7 @@ class Engine {
     return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
   }
 
-  File compress() throws IOException {
+  File compress() throws Exception {
     BitmapFactory.Options options = new BitmapFactory.Options();
     options.inSampleSize = computeSize();
 

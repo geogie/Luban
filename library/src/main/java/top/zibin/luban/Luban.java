@@ -135,7 +135,7 @@ public class Luban implements Handler.Callback {
             File result = compress(context, path);
 
             mHandler.sendMessage(mHandler.obtainMessage(MSG_COMPRESS_SUCCESS, result));
-          } catch (IOException e) {
+          } catch (Exception e) {
             mHandler.sendMessage(mHandler.obtainMessage(MSG_COMPRESS_ERROR, e));
           }
         }
@@ -148,7 +148,7 @@ public class Luban implements Handler.Callback {
   /**
    * start compress and return the file
    */
-  private File get(InputStreamProvider input, Context context) throws IOException {
+  private File get(InputStreamProvider input, Context context) throws Exception {
     try {
       return new Engine(input, getImageCacheFile(context, Checker.SINGLE.extSuffix(input)), focusAlpha).compress();
     } finally {
@@ -156,7 +156,7 @@ public class Luban implements Handler.Callback {
     }
   }
 
-  private List<File> get(Context context) throws IOException {
+  private List<File> get(Context context) throws Exception {
     List<File> results = new ArrayList<>();
     Iterator<InputStreamProvider> iterator = mStreamProviders.iterator();
 
@@ -168,7 +168,7 @@ public class Luban implements Handler.Callback {
     return results;
   }
 
-  private File compress(Context context, InputStreamProvider path) throws IOException {
+  private File compress(Context context, InputStreamProvider path) throws Exception {
     try {
       return compressReal(context,path);
     } finally {
@@ -176,7 +176,7 @@ public class Luban implements Handler.Callback {
     }
   }
 
-  private File compressReal(Context context, InputStreamProvider path) throws IOException {
+  private File compressReal(Context context, InputStreamProvider path) throws Exception {
     File result;
 
     File outFile = getImageCacheFile(context, Checker.SINGLE.extSuffix(path));
@@ -362,7 +362,7 @@ public class Luban implements Handler.Callback {
       build().launch(context);
     }
 
-    public File get(final String path) throws IOException {
+    public File get(final String path) throws Exception {
       return build().get(new InputStreamAdapter() {
         @Override
         public InputStream openInternal() throws IOException {
@@ -381,7 +381,7 @@ public class Luban implements Handler.Callback {
      *
      * @return the thumb image file list
      */
-    public List<File> get() throws IOException {
+    public List<File> get() throws Exception {
       return build().get(context);
     }
   }
